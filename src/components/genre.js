@@ -5,6 +5,8 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import { useHistory } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +39,9 @@ const Genre = ({ genre }) => {
   const [loading, setLoading] = useState(true);
   const classes = useStyles();
   const history = useHistory();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("xs"));
+  const matches2 = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     const api_key = process.env.REACT_APP_API_KEY;
@@ -63,7 +68,10 @@ const Genre = ({ genre }) => {
     <div>
       <h1 className={classes.genreName}>{genre.name}</h1>
       <div className={classes.root}>
-        <GridList className={classes.gridList} cols={5}>
+        <GridList
+          className={classes.gridList}
+          cols={matches ? 1.2 : matches2 ? 3.5 : 5.1}
+        >
           {movies.map((movie) => (
             <GridListTile
               key={movie.id}

@@ -4,6 +4,8 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import { useHistory } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,10 +42,17 @@ const useStyles = makeStyles((theme) => ({
 const SearchResults = ({ movies }) => {
   const classes = useStyles();
   const history = useHistory();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("xs"));
+  const matches2 = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div className={classes.root}>
       {movies.length > 0 ? (
-        <GridList className={classes.gridList} cols={5}>
+        <GridList
+          className={classes.gridList}
+          cols={matches ? 1 : matches2 ? 3 : 5}
+        >
           {movies.map((movie) => (
             <GridListTile
               key={movie.id}

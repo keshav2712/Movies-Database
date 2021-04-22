@@ -33,10 +33,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    padding: 10,
   },
   details: {
     padding: 10,
-    paddingRight: "15%",
+    [theme.breakpoints.up("md")]: {
+      paddingRight: "15%",
+    },
   },
 }));
 
@@ -89,7 +92,7 @@ const Movie = ({
           <div> Loading ...</div>
         ) : (
           <>
-            <Grid item xs={5} className={classes.center}>
+            <Grid item xs={12} md={5} className={classes.center}>
               <img
                 src={
                   movieData.poster_path
@@ -100,7 +103,7 @@ const Movie = ({
                 className={classes.img}
               />
             </Grid>
-            <Grid item xs={7} className={classes.details}>
+            <Grid item xs={12} md={7} className={classes.details}>
               <Box mt={4}>
                 <div className={classes.title}>{movieData.title}</div>
               </Box>

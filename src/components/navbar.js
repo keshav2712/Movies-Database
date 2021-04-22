@@ -9,6 +9,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +31,8 @@ export default function Navbar({ setSearching, setMovies }) {
   const classes = useStyles();
   const [search, setSearch] = useState("");
   const [showCross, setShowCross] = useState(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("xs"));
 
   const handleClick = () => {
     if (showCross) {
@@ -60,7 +64,9 @@ export default function Navbar({ setSearching, setMovies }) {
         <Toolbar className={classes.tabBar}>
           <Grid container spacing={3} alignItems="center">
             <Grid item xs={8}>
-              <div className={classes.heading}>Movies Database</div>
+              <div className={classes.heading}>
+                {!matches ? `Movies Database` : `MD`}
+              </div>
             </Grid>
             <Grid item xs={4}>
               <TextField
